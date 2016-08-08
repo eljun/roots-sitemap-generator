@@ -7,6 +7,8 @@ records      = require 'roots-records'
 collections  = require 'roots-collections'
 excerpt      = require 'html-excerpt'
 moment       = require 'moment'
+sitemap      = require 'webriq-roots-sitemap-v2'
+path         = require 'path'
 
 monthNames = [ "Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec" ]
 
@@ -27,7 +29,13 @@ module.exports =
     ),
     collections(folder: 'posts', layout: 'post'),
     js_pipeline(files: 'assets/js/*.coffee'),
-    css_pipeline(files: 'assets/css/*.styl')
+    css_pipeline(files: 'assets/css/*.styl'),
+    sitemap({
+      url: "https://roots-sitemap.netlify.com"
+      directory: ["!admin", "!node_modules"]
+      folder: path.join(__dirname)
+      file: "**/*.html"
+      })
   ]
 
   stylus:
